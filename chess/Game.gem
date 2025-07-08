@@ -1,0 +1,47 @@
+class Game {
+    init() {
+        this.board = Board();
+        this.selected = nil; // [piece, moves]
+    }
+
+    clickTile(x, y) {
+        var clickedPiece = this.board.get(x, y);
+
+        if (this.selected == nil) {
+            // Nothing selected yet
+            if (clickedPiece != nil and clickedPiece.color == this.board.turn) {
+                var moves = clickedPiece.getLegalMoves();
+                this.selected = [clickedPiece, moves];
+            }
+        } else {
+            var piece = this.selected[0];
+            var moves = this.selected[1];
+
+            var legal = false;
+            var i = 0;
+            while (i < moves.length()) {
+                var move = moves[i];
+                if (move[0] == x and move[1] == y) {
+                    legal = true;
+                    break;
+                }
+                i = i + 1;
+            }
+
+            if (legal) {
+                this.board.movePiece(piece.pos, [x, y]);
+                if(this.board.wKing.isInCheck() and this.board.wKing.isInMate())
+                    println("Black Won!");
+                if(this.board.bKing.isInCheck() and this.board.bKing.isInMate())
+                    println("White Won!");
+            }
+
+            this.selected = nil; // Deselect after click (move or cancel)
+        }
+    }
+
+    draw(win) {
+        // To be implemented in GUI step
+        // Calls board.draw(win), highlights legal moves, etc.
+    }
+}
