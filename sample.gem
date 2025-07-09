@@ -1,0 +1,4 @@
+println("Heres a error for you :)");
+
+class FuckYouError :: Error{}
+throw FuckYouError("Fuck you bro");
