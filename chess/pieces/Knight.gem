@@ -11,7 +11,7 @@ class Knight :: Piece {
         var i = 0;
         while (i < deltas.length()) {
             var dx = deltas[i][0];
-            var dy = deltas[i][a1];
+            var dy = deltas[i][1];
             var x = this.pos[0] + dx;
             var y = this.pos[1] + dy;
             if (this.inBounds(x, y) and (this.isEmpty(x, y) or this.isEnemy(x, y))) {
